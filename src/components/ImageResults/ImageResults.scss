@@ -1,0 +1,28 @@
+// ImageResults.scss
+.image-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.image-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-result img {
+    max-width: 200px;
+    border-radius: 8px;
+}
+
+.image-result button {
+    margin-top: 8px;
+    padding: 4px 8px;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
