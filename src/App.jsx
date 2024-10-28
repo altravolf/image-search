@@ -8,7 +8,7 @@ import { useState, useRef } from "react";
 function App() {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
-  const canvasInstance = useRef(null);  // Create a ref for canvasInstance
+  const canvasInstance = useRef(null);
 
   return (
     <div className="app container mx-auto px-16">
@@ -19,7 +19,10 @@ function App() {
         <>
           <CanvasEditor
             selectedImage={selectedImage}
-            setCanvasInstance={(instance) => (canvasInstance.current = instance)}
+            setCanvasInstance={(instance) => {
+              canvasInstance.current = instance;
+              console.log("Canvas instance set in App:", canvasInstance.current); // Verify if the instance is set
+            }}
           />
           <DownloadButton canvasInstance={canvasInstance} />
         </>

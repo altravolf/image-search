@@ -28,7 +28,11 @@ function CanvasEditor({ selectedImage, setCanvasInstance }) {
         setCanvasInstance(canvas);
         console.log("Canvas initialized with dimensions:", canvasWidth, canvasHeight);
 
-        if (selectedImage) {
+        // Ensure the selected image has a valid URL
+        if (selectedImage && selectedImage.url) {
+            console.log("Selected Image URL:", selectedImage.url); // Log the URL
+
+            // Use the crossOrigin attribute properly
             fabric.Image.fromURL(selectedImage.url, (img) => {
                 img.set({ selectable: false });
                 canvas.add(img);
@@ -36,6 +40,8 @@ function CanvasEditor({ selectedImage, setCanvasInstance }) {
                 canvas.renderAll();
                 console.log("Image added to canvas:", selectedImage.url);
             }, { crossOrigin: 'anonymous' });
+        } else {
+            console.error("Selected image is invalid or does not have a URL.");
         }
     }, [fabric, selectedImage, setCanvasInstance]);
 

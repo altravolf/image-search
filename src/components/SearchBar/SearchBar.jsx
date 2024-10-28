@@ -34,10 +34,11 @@ function SearchBar({ setImages }) {
             <div className="pt-2">
                 <button
                     onClick={handleSearch}
-                    className="border-2 px-2 rounded-md bg-blue-500 text-white hover:cursor-pointer border-blue-700 focus:outline-1 focus:outline-slate-500"
+                    className="border-2 px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-300"
                 >
                     Search
                 </button>
+
             </div>
         </div>
     );
