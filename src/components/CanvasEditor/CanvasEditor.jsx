@@ -20,29 +20,49 @@ function CanvasEditor({ selectedImage, setCanvasInstance }) {
         const canvasWidth = window.innerWidth > 1024 ? 800 : window.innerWidth * 0.9;
         const canvasHeight = window.innerWidth > 1024 ? 600 : canvasWidth * 0.75;
 
+        // Clean up any existing canvas instance
+        const existingCanvas = fabric.Canvas.instances.find(c => c.lowerCanvasEl === canvasRef.current);
+        if (existingCanvas) {
+            existingCanvas.dispose();
+        }
+
         const canvas = new fabric.Canvas(canvasRef.current, {
             width: canvasWidth,
             height: canvasHeight,
             backgroundColor: '#f3f4f6',
         });
         setCanvasInstance(canvas);
-        console.log("Canvas initialized with dimensions:", canvasWidth, canvasHeight);
 
-        // Ensure the selected image has a valid URL
+        // Add the selected image to the canvas if available
         if (selectedImage && selectedImage.url) {
-            console.log("Selected Image URL:", selectedImage.url); // Log the URL
-
-            // Use the crossOrigin attribute properly
-            fabric.Image.fromURL(selectedImage.url, (img) => {
-                img.set({ selectable: false });
-                canvas.add(img);
-                canvas.centerObject(img);
-                canvas.renderAll();
-                console.log("Image added to canvas:", selectedImage.url);
-            }, { crossOrigin: 'anonymous' });
+            fabric.Image.fromURL(
+                selectedImage.url,
+                (img) => {
+                    if (!img) {
+                        console.error("Failed to load image.");
+                        return;
+                    }
+                    img.set({
+                        selectable: false,
+                        left: (canvasWidth - img.width * 0.5) / 2, // Center the image horizontally
+                        top: (canvasHeight - img.height * 0.5) / 2, // Center the image vertically
+                        scaleX: 0.5, // Adjust scale if needed
+                        scaleY: 0.5,
+                    });
+                    canvas.add(img);
+                    canvas.renderAll();
+                    console.log("Image added to canvas:", selectedImage.url);
+                },
+                { crossOrigin: 'anonymous' }
+            );
         } else {
-            console.error("Selected image is invalid or does not have a URL.");
+            console.warn("Selected image is invalid or does not have a URL.");
         }
+
+        // Cleanup the canvas instance on unmount
+        return () => {
+            canvas.dispose();
+        };
     }, [fabric, selectedImage, setCanvasInstance]);
 
     const addText = () => {

@@ -8,9 +8,12 @@ function SearchBar({ setImages }) {
         if (!query.trim()) return; // Basic validation for empty queries
 
         try {
-            const response = await fetch(`https://api.unsplash.com/search/photos?query=${query}&client_id=DoygYeyMl3CzPHOO5c81V82VXAtjx5R_mLrT7wAHmo4`);
+            const response = await fetch(`https://api.unsplash.com/search/photos?query=${query}&client_id=IPLaBHT-jyUlNSgsrxAeY3a5GeCGpPfmg56xMh1FZt4`);
+            //  const response = await fetch(`https://api.unsplash.com/search/photos?query=${query}&client_id=DoygYeyMl3CzPHOO5c81V82VXAtjx5R_mLrT7wAHmo4`);
+            if (!response.ok) { // Check if the response status is not OK
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
             const data = await response.json();
-            // Unsplash returns images in `data.results`
             const formattedImages = data.results.map((img) => ({
                 id: img.id,
                 url: img.urls.small,
@@ -21,6 +24,7 @@ function SearchBar({ setImages }) {
             console.error("Error fetching images:", error);
         }
     };
+
 
     return (
         <div className="search-bar text-center">

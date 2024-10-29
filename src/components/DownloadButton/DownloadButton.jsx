@@ -3,7 +3,7 @@ import { FiDownload } from 'react-icons/fi';
 
 function DownloadButton({ canvasInstance }) {
     const handleDownload = () => {
-        if (canvasInstance.current) {
+        if (canvasInstance.current && !canvasInstance.current.isEmpty()) {
             const dataUrl = canvasInstance.current.toDataURL({
                 format: 'png',
                 quality: 1,
@@ -12,9 +12,8 @@ function DownloadButton({ canvasInstance }) {
             link.href = dataUrl;
             link.download = 'edited-image.png';
             link.click();
-            console.log("Canvas image downloaded");
         } else {
-            console.error("Canvas instance is null.");
+            console.error("Canvas is empty or canvas instance is null.");
         }
     };
 
