@@ -35,7 +35,7 @@ function SearchBar({ setImages }) {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search images"
             />
-            <div className="pt-2">
+            <div className="py-2">
                 <button
                     onClick={handleSearch}
                     className="border-2 px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-300"

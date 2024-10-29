@@ -1,4 +1,5 @@
 import './App.css';
+import MyInfo from './components/MyInfo/MyInfo';
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageResults from './components/ImageResults/ImageResults';
 import CanvasEditor from './components/CanvasEditor/CanvasEditor';
@@ -12,6 +13,9 @@ function App() {
 
   return (
     <div className="app container mx-auto px-16">
+
+      <MyInfo />
+
       <h1 className="text-center 2xl:text-3xl py-4">Image Editor App</h1>
       <SearchBar setImages={setImages} />
       <ImageResults images={images} setSelectedImage={setSelectedImage} />
